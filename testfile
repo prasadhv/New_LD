@@ -1,0 +1,31 @@
+#QA Engineer : Prasad.HV
+#Date : 20/4/2013
+
+require 'watir-webdriver'
+require "win32ole"
+require "C:\\Ruby193\\test_Echo\\./Open_ExcelSheet"
+require "C:\\Ruby193\\test_Echo\\./Configure_Setup"
+require "C:\\Ruby193\\test_Echo\\./Echo_functions"
+require 'C:\\Ruby193\\test_Echo\\classes\\html.class'
+
+EchoHost = "https://#{$IP}:#{$PORT}/ess/app"
+
+#Browse the server and login and logout.
+puts "\n##########  ESS server details ############\n"
+puts "ESS Server IP			: #{$IP}"
+puts "ESS Server PORT		: #{$PORT}"
+puts "Test case document	: #{$TC_doc}"
+puts "ESS server Application : #{EchoHost}"
+
+test_case = @html.newTestName('Echo360 WEB page test')
+
+@BROWSER = Watir::Browser.new :"#{$browser_type}"
+@BROWSER = Watir::Browser.start(EchoHost)   
+
+puts "############  START TEST!! OPENING BROWSER ###################\n"	
+
+test = 'Echo360 WEB page test'
+@html.add_to_report(@BROWSER.title == "EchoSystem Server - EchoSystem Server" , test, "PASS: Echo360 WEB page opened!!", "FAIL: Unable to open Echo360 WEB page")											
+
+puts "############  TEST OVER!! CLOSING BROWSER ########\n"	
+@BROWSER.close	
